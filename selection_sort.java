@@ -8,9 +8,10 @@ class selection_sort{
     
     public static void main(String[] args){
         selection_sort sorter = new selection_sort();
-        
-        int[] unsorted = new int[4];
-        sorter.sorted = new int[4];
+    
+        // build list with command line arguments    
+        int[] unsorted = new int[args.length];
+        sorter.sorted = new int[args.length];
         
         sorter.fillArray(unsorted, args);
         System.out.println("Unsorted: ");
@@ -36,6 +37,7 @@ class selection_sort{
 
     }
 
+// sorting highest to lowest
     void sort(int[] input){
         for(int i = 0; i < input.length; i++){
             for(int j = 0; j < input.length; j++){
