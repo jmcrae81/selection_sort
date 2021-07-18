@@ -1,57 +1,88 @@
 // selection_sort.java
+import java.util.*;
 
 class selection_sort{
 
     int largestNumber = 0;
     int largestIndex = 0;
-    int[] sorted;
+    ArrayList sorted;
     
     public static void main(String[] args){
         selection_sort sorter = new selection_sort();
     
         // build list with command line arguments    
-        int[] unsorted = new int[args.length];
-        sorter.sorted = new int[args.length];
+        ArrayList unsorted = new ArrayList(args.length);
+        sorter.sorted = new ArrayList(args.length);
         
-        sorter.fillArray(unsorted, args);
+        sorter.fillList(unsorted, args);
         System.out.println("Unsorted: ");
-        sorter.printArray(unsorted);
+        sorter.printList(unsorted);
 
-        sorter.sort(unsorted);
+        sorter.sortLowToHigh(unsorted);
         System.out.println("Sorted: ");
-        sorter.printArray(sorter.sorted); 
+        sorter.printList(sorter.sorted); 
 
     }
     
-    void printArray(int[] arrayToPrint){
-        for(int k = 0; k < arrayToPrint.length; k++){
-            System.out.print(arrayToPrint[k] + " ");
+    void printList(ArrayList arrayToPrint){
+        for(int k = 0; k < arrayToPrint.size(); k++){
+            System.out.print(arrayToPrint.get(k) + " ");
         }
         System.out.println();
     }
 
-    void fillArray(int[] target, String[] source){
+    void fillList(ArrayList target, String[] source){
         for(int i = 0; i < source.length; i++){
-            target[i] = Integer.parseInt(source[i]);
+            target.add(Integer.parseInt(source[i]) );
         }
 
     }
 
-// sorting highest to lowest
-    void sort(int[] input){
-        for(int i = 0; i < input.length; i++){
-            for(int j = 0; j < input.length; j++){
-                if(input[j] > largestNumber){
-                    largestNumber = input[j];
-                    largestIndex = j;
-                }
-            }
+    void sortLowToHigh(ArrayList input){
+        int smallestNumber = 0;
 
-            // reset control variables and add largest number(so far)
-            input[largestIndex] = 0;
-            sorted[i] = largestNumber;
-            largestNumber = 0;
+        while( input.size() != 0 ){
+            smallestNumber = findSmallest(input);
+            sorted.add(smallestNumber);
+        } 
+    }
+
+    int findSmallest(ArrayList theList){
+        int lowestNumber = (int) theList.get(0);
+        int indexOfLowest = 0;
+
+        for(int i = 0; i < theList.size(); i++){
+            if( ( (int) theList.get(i) ) < lowestNumber ){
+                lowestNumber = (int) theList.get(i);
+                indexOfLowest = i;
+            }
         }
+
+        theList.remove(indexOfLowest);
+        return lowestNumber;
+    }
+
+
+    void sortHightoLow(ArrayList input){
+       while( input.size() != 0){
+           largestNumber = findLargest(input);
+           sorted.add(largestNumber);
+       }
+    }
+    
+    int findLargest(ArrayList currentList){
+        int currentLargest = (int) currentList.get(0);
+        int indexOfLargest = 0;
+
+        for(int i = 0; i < currentList.size(); i++){
+            if( ( (int) currentList.get(i)) > currentLargest){
+                currentLargest = (int) currentList.get(i);
+                indexOfLargest = i;
+            }
+        }
+
+        currentList.remove(indexOfLargest);
+
+        return currentLargest;
     }
 }
-
