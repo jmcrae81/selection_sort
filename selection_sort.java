@@ -1,10 +1,11 @@
-// selection_sort.java
+// Author: Jimmy McRae
+// selection sort implementation
+// use command line arguments to build a sortable list
+
 import java.util.*;
 
 class selection_sort{
 
-    int largestNumber = 0;
-    int largestIndex = 0;
     ArrayList sorted;
     
     public static void main(String[] args){
@@ -15,15 +16,27 @@ class selection_sort{
         sorter.sorted = new ArrayList(args.length);
         
         sorter.fillList(unsorted, args);
-        System.out.println("Unsorted: ");
+        System.out.print("Unsorted: ");
         sorter.printList(unsorted);
 
         sorter.sortLowToHigh(unsorted);
-        System.out.println("Sorted: ");
+        System.out.print("Sorted (Lowest to Highest): ");
         sorter.printList(sorter.sorted); 
 
+        sorter.resetLists(unsorted);
+        sorter.fillList(unsorted, args);
+        sorter.sortHighToLow(unsorted);
+        System.out.print("Sorted (Highest to Lowest): ");
+        sorter.printList(sorter.sorted);
+        
+        
     }
     
+    void resetLists(ArrayList original){
+        original.clear();
+        sorted.clear();
+    }
+
     void printList(ArrayList arrayToPrint){
         for(int k = 0; k < arrayToPrint.size(); k++){
             System.out.print(arrayToPrint.get(k) + " ");
@@ -63,7 +76,9 @@ class selection_sort{
     }
 
 
-    void sortHightoLow(ArrayList input){
+    void sortHighToLow(ArrayList input){
+       int largestNumber = 0;
+
        while( input.size() != 0){
            largestNumber = findLargest(input);
            sorted.add(largestNumber);
